@@ -10,13 +10,12 @@ import knex from "knex";
 // const image = require("./controllers/image");
 
 const app = express();
-
-app.listen("3000");
+app.listen("3001");
 
 const db = knex({
   client: "mysql",
   connection: {
-    host: "127.0.0.1",
+    host: "localhost",
     user: "root",
     password: "",
     database: "kata_kbbi",
@@ -27,10 +26,14 @@ const db = knex({
 // app.use(cors());
 // app.use(formData.parse());
 
-app.get("/", async (req, res) => {
+app.get("/cekkata", async (req, res) => {
+  // Kurang membuat request
+
   try {
-    const hasil = await db.select("*").from("tb_katadasar").limit(10);
-    res.json(hasil);
+    const result = await db("tb_katadasar")
+      .where({ katadasar: "abad" })
+      .limit(10);
+    res.json(result);
   } catch (e) {
     console.log(e);
   }
