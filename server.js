@@ -1,16 +1,12 @@
 import express from "express";
-import bodyParser from "body-parser";
-import bcrypt from "bcrypt-nodejs";
 import cors from "cors";
 import knex from "knex";
+// import bodyParser from "body-parser";
 
 // const register = require("./controllers/register");
 // const signin = require("./controllers/signin");
 // const profile = require("./controllers/profile");
 // const image = require("./controllers/image");
-
-const app = express();
-app.listen("3001");
 
 const db = knex({
   client: "mysql",
@@ -22,9 +18,10 @@ const db = knex({
   },
 });
 
+const app = express();
+
 // app.use(bodyParser.json());
-// app.use(cors());
-// app.use(formData.parse());
+app.use(cors());
 
 app.get("/cekkata/:kata", async (req, res) => {
   try {
@@ -61,3 +58,4 @@ app.get("/cekkata/:kata", async (req, res) => {
 // app.listen(process.env.PORT || 3000, function () {
 //   console.log("server starts");
 // });
+app.listen("3001");
