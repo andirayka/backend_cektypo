@@ -25,9 +25,11 @@ app.use(cors());
 
 app.get("/cekkata/:kata", async (req, res) => {
   try {
+    const finalKata = req.params.kata.toLowerCase().replace(/\W/g, "");
+
     const response = await db("tb_katadasar")
       .select("katadasar")
-      .where({ katadasar: req.params.kata })
+      .where({ katadasar: finalKata })
       .limit(10);
 
     if (response.length == 0) {
