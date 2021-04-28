@@ -26,14 +26,19 @@ const db = knex({
 // app.use(cors());
 // app.use(formData.parse());
 
-app.get("/cekkata", async (req, res) => {
-  // Kurang membuat request
-
+app.get("/cekkata/:kata", async (req, res) => {
   try {
-    const result = await db("tb_katadasar")
-      .where({ katadasar: "abad" })
+    const response = await db("tb_katadasar")
+      .select("katadasar")
+      .where({ katadasar: req.params.kata })
       .limit(10);
-    res.json(result);
+
+    if (response.length == 0) {
+      res.send(false);
+    } else res.send(true);
+
+    // console.log(response);
+    // res.json(response);
   } catch (e) {
     console.log(e);
   }
