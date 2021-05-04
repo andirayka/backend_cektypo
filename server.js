@@ -1,13 +1,8 @@
 import express from "express";
 import cors from "cors";
 import knex from "knex";
-// import bodyParser from "body-parser";
 
-// const register = require("./controllers/register");
-// const signin = require("./controllers/signin");
-// const profile = require("./controllers/profile");
-// const image = require("./controllers/image");
-
+// * Konfigurasi Database
 const db = knex({
   client: "mysql",
   connection: {
@@ -18,11 +13,11 @@ const db = knex({
   },
 });
 
+// * Inisialisasi app express.js
 const app = express();
-
-// app.use(bodyParser.json());
 app.use(cors());
 
+// * API cek kata baku atau tidak
 app.get("/cekkata/:kata", async (req, res) => {
   try {
     const finalKata = req.params.kata.toLowerCase().replace(/\W/g, "");
@@ -43,21 +38,7 @@ app.get("/cekkata/:kata", async (req, res) => {
   }
 });
 
-// app.post("/signin", signin.handleSignin(db, bcrypt));
-// app.post("/register", (req, res) => {
-//   register.handleRegister(req, res, db, bcrypt);
-// });
-// app.get("/profile/:id", (req, res) => {
-//   profile.handleProfileGet(req, res, db);
-// });
-// app.put("/image", (req, res) => {
-//   image.handleImage(req, res, db);
-// });
-// app.post("/imageurl", (req, res) => {
-//   image.handleApiCall(req, res);
-// });
-
+app.listen("3001");
 // app.listen(process.env.PORT || 3000, function () {
 //   console.log("server starts");
 // });
-app.listen("3001");
