@@ -38,6 +38,44 @@ app.get("/cekkata/:kata", async (req, res) => {
   }
 });
 
+// * API insert kata
+app.get("/insertkata/:kata", async (req, res) => {
+  try {
+    const finalKata = req.params.kata.toLowerCase().replace(/\W/g, "");
+
+    const response = await db("tb_katadasar").insert({ katadasar: finalKata });
+
+    if (response.length == 0) {
+      res.send(false);
+    } else res.send(true);
+
+    // console.log(response);
+    // res.json(response);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+// * API Delete kata
+app.get("/deletekata/:kata", async (req, res) => {
+  try {
+    const finalKata = req.params.kata.toLowerCase().replace(/\W/g, "");
+
+    const response = await db("tb_katadasar")
+      .where({ katadasar: finalKata })
+      .del();
+
+    if (response.length == 0) {
+      res.send(false);
+    } else res.send(true);
+
+    // console.log(response);
+    // res.json(response);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 app.listen("3001");
 // app.listen(process.env.PORT || 3000, function () {
 //   console.log("server starts");
